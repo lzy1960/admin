@@ -48,34 +48,35 @@
               <i class="el-icon-refresh"></i>
               <span>概况</span>
             </el-menu-item>
-            <el-menu-item  index="2">
+            <el-menu-item index="2">
               <i class="el-icon-date"></i>
               <span>数据</span>
             </el-menu-item>
-            <el-menu-item  index="3">
+            <el-menu-item index="3">
               <i class="el-icon-sort"></i>
               <span>交易</span>
             </el-menu-item>
-            <el-menu-item  index="4">
+            <el-menu-item index="4">
               <i class="el-icon-suitcase-1"></i>
               <span>商品</span>
             </el-menu-item>
-            <el-menu-item  index="5">
+            <el-menu-item index="5">
               <i class="el-icon-goblet"></i>
               <span>订单</span>
             </el-menu-item>
-            <el-menu-item  index="6">
+            <el-menu-item index="6">
               <i class="el-icon-user"></i>
               <span>客户</span>
             </el-menu-item>
-            <el-menu-item  index="7">
+            <el-menu-item index="7">
               <i class="el-icon-setting"></i>
               <span>设置</span>
             </el-menu-item>
           </el-menu>
         </el-aside>
         <el-container>
-          <el-main>main</el-main>
+          <el-main style="background: #f5f5f5;">
+          </el-main>
           <el-footer>footer</el-footer>
         </el-container>
       </el-container>
