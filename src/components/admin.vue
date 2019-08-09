@@ -92,9 +92,10 @@
         <router-view></router-view>
         <el-footer>
           <div class="logo">
-            <a href=""></a>
+            <a href="#">LOGO</a>
           </div>
           <div class="copyright">
+            copyright
           </div>
         </el-footer>
       </el-main>
@@ -178,6 +179,7 @@ export default {
 
   .el-footer {
     display: flex;
+    justify-content: space-between;
 
     .logo {
       display: inline-block;
