@@ -91,7 +91,11 @@
       <el-main style="background: #f5f5f5;height: calc(100vh - 60px);">
         <router-view></router-view>
         <el-footer>
-          footer
+          <div class="logo">
+            <a href=""></a>
+          </div>
+          <div class="copyright">
+          </div>
         </el-footer>
       </el-main>
     </el-container>
@@ -169,6 +173,18 @@ export default {
           color: #3e71f7;
         }
       }
+    }
+  }
+
+  .el-footer {
+    display: flex;
+
+    .logo {
+      display: inline-block;
+    }
+
+    .copyright {
+      display: inline-block;
     }
   }
 }

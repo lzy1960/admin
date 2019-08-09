@@ -210,10 +210,6 @@ export default {}
   .simple-card {
     margin-bottom: 20px;
 
-    &:last-child {
-      margin-bottom: 0;
-    }
-
     .title {
       font-size: 16px;
       font-weight: 700;
