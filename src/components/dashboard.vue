@@ -198,11 +198,312 @@
     </el-card>
     <el-card class="simple-card sell">
       <h4 class="sell-title">销售业绩</h4>
+      <el-tabs v-model="tabItem" @tab-click="tabChange">
+        <el-tab-pane label="全店" name="all">
+          <el-row>
+            <el-col class="sell-item" :lg="6" :md="12">
+              <div class="sell-item-title">昨日支付金额(元)</div>
+              <div class="money">{{all[0]+'.00 '}}</div>
+            </el-col>
+            <el-col class="sell-item" :lg="6" :md="12">
+              <div class="sell-item-title">本月已完成(元)</div>
+              <div class="money">{{all[1]+'.00 '}}</div>
+            </el-col>
+            <el-col class="sell-item" :lg="6" :md="12">
+              <div class="sell-item-title">本月目标(元)</div>
+              <div class="money">{{all[2]+'.00 '}}</div>
+            </el-col>
+            <el-col class="sell-item" :lg="6" :md="12">
+              <div class="sell-item-title">完成进度(%)</div>
+              <div class="money">{{parseInt((all[1]-all[0])/all[2]*100)}}</div>
+            </el-col>
+          </el-row>
+          <div class="sell-echarts" id="all-echarts">
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="网店" name="online">
+          <el-row>
+            <el-col class="sell-item" :lg="6" :md="12">
+              <div class="sell-item-title">昨日支付金额(元)</div>
+              <div class="money">{{online[0]+'.00'}}</div>
+            </el-col>
+            <el-col class="sell-item" :lg="6" :md="12">
+              <div class="sell-item-title">本月已完成(元)</div>
+              <div class="money">{{online[1]+'.00'}}</div>
+            </el-col>
+            <el-col class="sell-item" :lg="6" :md="12">
+              <div class="sell-item-title">本月目标(元)</div>
+              <div class="money">{{online[2]+'.00'}}</div>
+            </el-col>
+            <el-col class="sell-item" :lg="6" :md="12">
+              <div class="sell-item-title">完成进度(%)</div>
+              <div class="money">{{parseInt((online[1]-online[0])/online[2]*100)}}</div>
+            </el-col>
+          </el-row>
+          <div class="sell-echarts" id="online-echarts">
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="门店" name="offline">
+          <el-row>
+            <el-col class="sell-item" :lg="6" :md="12">
+              <div class="sell-item-title">昨日支付金额(元)</div>
+              <div class="money">{{offline[0]+'.00'}}</div>
+            </el-col>
+            <el-col class="sell-item" :lg="6" :md="12">
+              <div class="sell-item-title">本月已完成(元)</div>
+              <div class="money">{{offline[1]+'.00'}}</div>
+            </el-col>
+            <el-col class="sell-item" :lg="6" :md="12">
+              <div class="sell-item-title">本月目标(元)</div>
+              <div class="money">{{offline[2]+'.00'}}</div>
+            </el-col>
+            <el-col class="sell-item" :lg="6" :md="12">
+              <div class="sell-item-title">完成进度(%)</div>
+              <div class="money">{{parseInt((offline[1]-offline[0])/offline[2]*100)}}</div>
+            </el-col>
+          </el-row>
+          <div class="sell-echarts" id="offline-echarts">
+          </div>
+        </el-tab-pane>
+      </el-tabs>
     </el-card>
   </div>
 </template>
 <script>
-export default {}
+import echarts from 'echarts'
+
+export default {
+  data() {
+    return {
+      allChart: {
+        grid: {
+          left: '5%',
+          right: '5%'
+        },
+        xAxis: {
+          // type: 'value',
+          data: ['01/01', '02/01', '03/01', '04/01', '05/01', '06/01', '07/01', '08/01', '09/01', '10/01', '11/01', '12/01'],
+          boundaryGap: false,
+          axisLabel: {
+            color: '#333'
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#ccc'
+            }
+          },
+          axisTick: {
+            lineStyle: {
+              color: '#ccc'
+            }
+          }
+        },
+        yAxis: {
+          type: 'value',
+          axisTick: {
+            show: false
+          },
+          axisLine: {
+            show: false
+          },
+          splitLine: {
+            lineStyle: {
+              color: '#ddd',
+              type: 'dotted'
+            }
+          }
+        },
+        label: {},
+        tooltip: {
+          trigger: 'axis',
+          backgroundColor: 'rgba(255,255,255,0.7)',
+          transitionDuration: 0.2,
+          textStyle: {
+            color: '#333',
+            fontSize: 12
+          },
+          extraCssText: 'box-shadow: 0 0 10px rgba(0, 0, 0, 0.3)'
+        },
+        series: [{
+          name: 'online',
+          data: [7000, 6900, 9500, 14500, 18400, 21500, 25200, 26500, 23300, 18300, 13900, 9600],
+          type: 'line'
+        }, {
+          name: 'offline',
+          data: [3900, 4200, 5700, 8500, 11900, 15200, 17000, 16600, 14200, 10300, 6600, 4800],
+          type: 'line'
+        }],
+        color: ['#5584ff', '#33cc33']
+      },
+      onlineChart: {
+        grid: {
+          left: '5%',
+          right: '5%'
+        },
+        xAxis: {
+          // type: 'value',
+          data: ['01/01', '02/01', '03/01', '04/01', '05/01', '06/01', '07/01', '08/01', '09/01', '10/01', '11/01', '12/01'],
+          boundaryGap: false,
+          axisLabel: {
+            color: '#333'
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#ccc'
+            }
+          },
+          axisTick: {
+            lineStyle: {
+              color: '#ccc'
+            }
+          }
+        },
+        yAxis: {
+          type: 'value',
+          axisTick: {
+            show: false
+          },
+          axisLine: {
+            show: false
+          },
+          splitLine: {
+            lineStyle: {
+              color: '#ddd',
+              type: 'dotted'
+            }
+          }
+        },
+        label: {},
+        tooltip: {
+          trigger: 'axis',
+          backgroundColor: 'rgba(255,255,255,0.7)',
+          transitionDuration: 0.2,
+          textStyle: {
+            color: '#333',
+            fontSize: 12
+          },
+          extraCssText: 'box-shadow: 0 0 10px rgba(0, 0, 0, 0.3)'
+        },
+        series: [{
+          name: 'online',
+          data: [7000, 6900, 9500, 14500, 18400, 21500, 25200, 26500, 23300, 18300, 13900, 9600],
+          type: 'line'
+        }, {
+          name: 'offline',
+          data: [3900, 4200, 5700, 8500, 11900, 15200, 17000, 16600, 14200, 10300, 6600, 4800],
+          type: 'line'
+        }],
+        color: ['#5584ff', '#33cc33']
+      },
+      offlineChart: {
+        grid: {
+          left: '5%',
+          right: '5%'
+        },
+        xAxis: {
+          // type: 'value',
+          data: ['01/01', '02/01', '03/01', '04/01', '05/01', '06/01', '07/01', '08/01', '09/01', '10/01', '11/01', '12/01'],
+          boundaryGap: false,
+          axisLabel: {
+            color: '#333'
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#ccc'
+            }
+          },
+          axisTick: {
+            lineStyle: {
+              color: '#ccc'
+            }
+          }
+        },
+        yAxis: {
+          type: 'value',
+          axisTick: {
+            show: false
+          },
+          axisLine: {
+            show: false
+          },
+          splitLine: {
+            lineStyle: {
+              color: '#ddd',
+              type: 'dotted'
+            }
+          }
+        },
+        label: {},
+        tooltip: {
+          trigger: 'axis',
+          backgroundColor: 'rgba(255,255,255,0.7)',
+          transitionDuration: 0.2,
+          textStyle: {
+            color: '#333',
+            fontSize: 12
+          },
+          extraCssText: 'box-shadow: 0 0 10px rgba(0, 0, 0, 0.3)'
+        },
+        series: [{
+          name: 'online',
+          data: [7000, 6900, 9500, 14500, 18400, 21500, 25200, 26500, 23300, 18300, 13900, 9600],
+          type: 'line'
+        }, {
+          name: 'offline',
+          data: [3900, 4200, 5700, 8500, 11900, 15200, 17000, 16600, 14200, 10300, 6600, 4800],
+          type: 'line'
+        }],
+        color: ['#5584ff', '#33cc33']
+      },
+      all: [677.00, 3621.00, 10000.00],
+      online: [1286.00, 2836.00, 5000.00],
+      offline: [892.00, 1928.00, 5000.00],
+      tabItem: 'all'
+    }
+  },
+  mounted() {
+    setTimeout(() => {
+      var allChart = echarts.init(document.getElementById('all-echarts'))
+      allChart.setOption(this.allChart)
+      window.onresize = function() {
+        allChart.resize()
+      }
+    }, 0)
+  },
+  methods: {
+    tabChange() {
+      switch (this.tabItem) {
+        case 'all':
+          setTimeout(() => {
+            var allChart = echarts.init(document.getElementById('all-echarts'))
+            allChart.setOption(this.allChart)
+            window.onresize = function() {
+              allChart.resize()
+            }
+          }, 0)
+          break
+        case 'online':
+          setTimeout(() => {
+            var onlineChart = echarts.init(document.getElementById('online-echarts'))
+            onlineChart.setOption(this.onlineChart)
+            window.onresize = function() {
+              onlineChart.resize()
+            }
+          }, 0)
+          break
+        case 'offline':
+          setTimeout(() => {
+            var offlineChart = echarts.init(document.getElementById('offline-echarts'))
+            offlineChart.setOption(this.offlineChart)
+            window.onresize = function() {
+              offlineChart.resize()
+            }
+          }, 0)
+          break
+      }
+    }
+  }
+}
 
 </script>
 <style lang="less" scoped>
@@ -302,6 +603,29 @@ export default {}
           font-size: 14px;
           vertical-align: middle;
         }
+      }
+    }
+  }
+
+  .sell {
+    .sell-title {
+      margin-bottom: 20px;
+    }
+    .sell-echarts {
+      width: 100%;
+      height: 400px;
+    }
+
+    .sell-item {
+      margin-top: 20px;
+      .sell-item-title {
+        margin-bottom: 20px;
+        font-size: 14px;
+      }
+
+      .money {
+        font-weight: 700;
+        font-size: 18px;
       }
     }
   }

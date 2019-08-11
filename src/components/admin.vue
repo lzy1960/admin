@@ -114,6 +114,10 @@ export default {
 </script>
 <style lang="less" scoped>
 .admin {
+  .el-menu-item.is-active {
+    background-color: #ecf5ff;
+  }
+
   .header {
     display: flex;
     justify-content: space-between;
